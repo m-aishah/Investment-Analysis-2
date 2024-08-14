@@ -1,0 +1,106 @@
+projects/available_projects (location, min_price, max_price, purpose)
+[
+    {
+        projectID:
+        projectName:
+        propertyDeveloper:
+        location:
+        purpose:
+        description:
+        start_date:
+        completion_date:
+        facilities: []
+        image_url: []
+        no_of_installments:
+        no_of_properties:
+        property_types : [
+            {
+                propertyID: 
+                no_of_rooms:
+                type:
+                total_area_sqmeter:
+                no_of_bathrooms:
+                price:
+            }
+        ]
+        percentage_sold:
+    },
+]
+projects/available_projects/propertyID/price_list
+[
+    {
+        No:
+        apratment_type:
+        block:
+        floor:
+        interior_sqmeter:
+        balcony_terrace_sqmeter:
+        rooftop_sqmeter:
+        total_living_space_sqmeter:
+        payment_plan: {
+            start_date:
+            delivery_date:
+            price:
+            percentage_payment_amount:
+            payment_amount:
+            installment_payment_plan:
+            [
+                {
+                    percentage:
+                    plan:
+                    [
+                        ("1", "August 2024", 1510),
+                    ]
+                },
+            ]
+            additional_fees: {
+                property_price:
+                VAT:
+                stamp_duty:
+                title_deed_transfer:
+                lawyer_fees:
+            }
+            total_amount:
+        }
+    },
+]
+projects/available_projects/propertyID/rental_income
+[
+    {
+        propertyID:
+        property:
+        "pessimistic":
+        {
+            scenario:
+            no_of_rental_days:
+            average_daily_rate:
+            gross_rental_income:
+            net_income:
+            unit_price:
+            annual_net_rental_yield:
+            ROI:
+        }
+        "realistic":
+        {
+            scenario:
+            no_of_rental_days:
+            average_daily_rate:
+            gross_rental_income:
+            net_income:
+            unit_price:
+            annual_net_rental_yield:
+            ROI:
+        }
+        "optimistic":
+        {
+            scenario:
+            no_of_rental_days:
+            average_daily_rate:
+            gross_rental_income:
+            net_income:
+            unit_price:
+            annual_net_rental_yield:
+            ROI:
+        }
+    },
+]

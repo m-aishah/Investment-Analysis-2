@@ -2,6 +2,7 @@ import json
 from models import InvestmentOptionsSchema
 
 def filter_investment_options(parameters: InvestmentOptionsSchema):
+    print("here")
     # Convert the projects_data string to a list of dictionaries
     try:
         projects_data = json.loads(parameters.projects_data.replace("'", '"'))
@@ -12,7 +13,7 @@ def filter_investment_options(parameters: InvestmentOptionsSchema):
     filtered_projects = []
 
     for property in projects_data:
-            print(property)
+            # print(property)
             if (property['price'] >= parameters.budget_min and
                 property['price'] <= parameters.budget_max and
                 (property['total_area_sqmeter'] >= parameters.size_min if parameters.size_min else True) and
@@ -45,7 +46,7 @@ def filter_investment_options(parameters: InvestmentOptionsSchema):
                         'balcony_terrace_sqmeter': property['balcony_terrace_sqmeter'],
                         'rooftop_sqmeter': property['rooftop_sqmeter'],
                         'total_living_space_sqmeter': property['total_living_space_sqmeter'],
-                        'payment_plan': property['payment_plan'],
+                        'installment_payment_plan': property['installment_payment_plan'],
                         'VAT': property['VAT'],
                         'stamp_duty': property['stamp_duty'],
                         'title_deed_transfer': property['title_deed_transfer'],

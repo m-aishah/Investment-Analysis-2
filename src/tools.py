@@ -18,17 +18,17 @@ tools = [
         "rerun": True,
         "rerunWithDifferentParameters": True
     },
-    {
-       "name": "rental_income_forecast_module",
-       "description": "Presents detailed rental income forecast for properties",
-       "parameters": custom_json_schema(InvestmentOptionsSchema),
-       "runCmd": run_rental_income_forecast,
-       "isDangerous": False,
-       "functionType": "backend",
-        "isLongRunningTool": False,
-        "rerun": True,
-        "rerunWithDifferentParameters": False
-    },
+    # {
+    #    "name": "rental_income_forecast_module",
+    #    "description": "Presents detailed rental income forecast for properties",
+    #    "parameters": custom_json_schema(InvestmentOptionsSchema),
+    #    "runCmd": run_rental_income_forecast,
+    #    "isDangerous": False,
+    #    "functionType": "backend",
+    #     "isLongRunningTool": False,
+    #     "rerun": True,
+    #     "rerunWithDifferentParameters": False
+    # },
 
     {
         "name": "property_details_and_insights_module",
@@ -40,28 +40,28 @@ tools = [
         "isLongRunningTool": False,
         "rerun": True,
         "rerunWithDifferentParameters": True
-    },
-    {
-        "name": "risk_analysis_module",
-        "description": "Analyzes risk factors associated with property investment",
-        "parameters": custom_json_schema(InvestmentOptionsSchema),
-        "runCmd": run_risk_analysis_module,
-        "isDangerous": False,
-        "functionType": "backend",
-        "isLongRunningTool": False,
-        "rerun": True,
-        "rerunWithDifferentParameters": True
-        # "postCallPrompt": "after getting investment data, look at the most expensive and the cheapest options and put them on a bar chart"
-    },
-   {
-        "name": "investment_recommendations_module",
-        "description": "Provides investment recommendations based on predefined criteria",
-        "parameters": custom_json_schema(InvestmentOptionsSchema),
-        "runCmd": run_investment_recommendation_wrapper,
-        "isDangerous": False,
-        "functionType": "backend",
-        "isLongRunningTool": False,
-        "rerun": True,
-        "rerunWithDifferentParameters": False
-    }    
+    }
+#     {
+#         "name": "risk_analysis_module",
+#         "description": "Analyzes risk factors associated with property investment",
+#         "parameters": custom_json_schema(InvestmentOptionsSchema),
+#         "runCmd": run_risk_analysis_module,
+#         "isDangerous": False,
+#         "functionType": "backend",
+#         "isLongRunningTool": False,
+#         "rerun": True,
+#         "rerunWithDifferentParameters": True
+#         # "postCallPrompt": "after getting investment data, look at the most expensive and the cheapest options and put them on a bar chart"
+#     },
+#    {
+#         "name": "investment_recommendations_module",
+#         "description": "Provides investment recommendations based on predefined criteria",
+#         "parameters": custom_json_schema(InvestmentOptionsSchema),
+#         "runCmd": run_investment_recommendation_wrapper,
+#         "isDangerous": False,
+#         "functionType": "backend",
+#         "isLongRunningTool": False,
+#         "rerun": True,
+#         "rerunWithDifferentParameters": False
+#     }    
 ]

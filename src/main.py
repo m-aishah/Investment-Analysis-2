@@ -34,11 +34,12 @@ def run_cmnd_tool_endpoint():
     tool_name = data.get('toolName')
     print("tool_name", tool_name)
     props = data.get('props', {})
-    print("props", props)
+    # print("props", props)
     #print(props)
     tool = next((t for t in tools if t['name'] == tool_name), None)
-    print (tool["runCmd"])
-    print(props["budget_max"])
+    # print (tool["runCmd"])
+    #print(props["budget_max"])
+    # print(props["projects_data"])
     if not tool:
         abort(404, description="Tool not found")
     try:
@@ -46,7 +47,7 @@ def run_cmnd_tool_endpoint():
         # chatbot_conversation_id = props.pop("chatbotConversationId", None)
         # print("here")
         result = tool["runCmd"](**props)
-        print("result", result)
+        # print("result", result)
         return jsonify(result)
     except Exception as e:
         abort(500, description=str(e))

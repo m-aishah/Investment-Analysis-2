@@ -3,13 +3,13 @@ from modules.filter_investment_options import filter_investment_options
 from modules.access_data import fetch_price_list
 
 def gather_property_details(property_id):
-    print("here 1")
+    # print("here 1")
     try:
         price_list = fetch_price_list(property_id)
     except Exception as e:
         raise Exception(f"Failed to fetch price list: {e}")
     
-    print("here 2")
+    #print("here 2")
 
     details = []
     if price_list:
@@ -34,12 +34,12 @@ def gather_property_details(property_id):
     return details
 
 def run_property_details_and_insights(**kwargs):
-    print("here 3")
+    #print("here 3")
     parameters = InvestmentOptionsSchema(**kwargs)
-    print("here 4")
+    #print("here 4")
     filtered_projects = filter_investment_options(parameters)
-    print("here 5")
-    print(filtered_projects)
+    #print("here 5")
+    #print(filtered_projects)
     
     property_details = []
     for item in filtered_projects:

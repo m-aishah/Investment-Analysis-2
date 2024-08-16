@@ -1,36 +1,18 @@
+import json
 from models import InvestmentOptionsSchema
-from modules.access_data import fetch_available_projects
 
 def filter_investment_options(parameters: InvestmentOptionsSchema):
-    if parameters.location:
-        locations = parameters.location.split(', ')
-        projects_data = []
-        try:      
-            for location in locations:
-                projects_data.extend(fetch_available_projects(
-                    location=location,
-                    min_price=parameters.budget_min,
-                    max_price=parameters.budget_max,
-                    # purpose='Residential' if parameters.family_size else None
-                ))
-        except Exception as e:
-            raise Exception(f"Failed to fetch projects data: {e}")
-    else:
-        try:
-            projects_data = fetch_available_projects(
-                location=parameters.location,
-                min_price=parameters.budget_min,
-                max_price=parameters.budget_max,
-                # purpose='Residential' if parameters.family_size else None
-            )
-            print("projects_data", projects_data)
-        except Exception as e:
-            raise Exception(f"Failed to fetch projects data: {e}")
+    # Convert the projects_data string to a list of dictionaries
+    try:
+        projects_data = json.loads(parameters.projects_data.replace("'", '"'))
+        # print(f"projects_data: {projects_data}")
+    except json.JSONDecodeError as e:
+        raise Exception(f"Failed to parse projects data: {e}")
     
     filtered_projects = []
 
-    for project in projects_data:
-        for property in project['property_types']:
+    for property in projects_data:
+            print(property)
             if (property['price'] >= parameters.budget_min and
                 property['price'] <= parameters.budget_max and
                 (property['total_area_sqmeter'] >= parameters.size_min if parameters.size_min else True) and
@@ -40,27 +22,40 @@ def filter_investment_options(parameters: InvestmentOptionsSchema):
                 (property['no_of_bathrooms'] >= parameters.bathrooms_min if parameters.bathrooms_min else True) and
                 (property['no_of_bathrooms'] <= parameters.bathrooms_max if parameters.bathrooms_max else True) and
                 ((property['type']).lower() == parameters.property_type.lower() if parameters.property_type else True)):
-                filtered_projects.append({
-                    'projectID': project['projectID'],
-                    'projectName': project['projectName'],
-                    'propertyDeveloper': project['propertyDeveloper'],
-                    'location': project['location'],
-                    'description': project['description'],
-                    'purpose': project['purpose'],
-                    'start_date': project['start_date'],
-                    'completion_date': project['completion_date'],
-                    'facilities': project['facilities'],
-                    'no_of_installments': project['no_of_installments'],
-                    'no_of_properties': project['no_of_properties'],
-                    'percentage_sold': project['percentage_sold'],
-                    'propertyID': property['propertyID'],
-                    'no_of_rooms': property['no_of_rooms'],
-                    'type': property['type'],
-                    'total_area_sqmeter': property['total_area_sqmeter'],
-                    'no_of_bathrooms': property['no_of_bathrooms'],
-                    'price': property['price'],
-                    'ImageURL': project['image_url'][0]
-                })
+                try:
+                    filtered_projects.append({
+                        'projectID': property['projectID'],
+                        'projectName': property['projectName'],
+                        'propertyDeveloper': property['propertyDeveloper'],
+                        'location': property['location'],
+                        'description': property['description'],
+                        'purpose': property['purpose'],
+                        'start_date': property['start_date'],
+                        'completion_date': property['completion_date'],
+                        'facilities': property['facilities'],
+                        'no_of_installments': property['no_of_installments'],
+                        'no_of_properties': property['no_of_properties'],
+                        'percentage_sold': property['percentage_sold'],
+                        'propertyID': property['propertyID'],
+                        'no_of_rooms': property['no_of_rooms'],
+                        'total_area_sqmeter': property['total_area_sqmeter'],
+                        'no_of_bathrooms': property['no_of_bathrooms'],
+                        'price': property['price'],
+                        'interior_sqmeter': property['interior_sqmeter'],
+                        'balcony_terrace_sqmeter': property['balcony_terrace_sqmeter'],
+                        'rooftop_sqmeter': property['rooftop_sqmeter'],
+                        'total_living_space_sqmeter': property['total_living_space_sqmeter'],
+                        'payment_plan': property['payment_plan'],
+                        'VAT': property['VAT'],
+                        'stamp_duty': property['stamp_duty'],
+                        'title_deed_transfer': property['title_deed_transfer'],
+                        'lawyer_fees': property['lawyer_fees'],
+                        'price': property['price'],
+                        'ImageURL OR VideoURL': property['ImageURL'] or property['VideoURL'],
+                        # 'ImageURL': property['image_url'][0] if property['image_url'] else None
+                    })
+                except Exception as e:
+                     print("Error filtering properties: ", e)
 
     if not filtered_projects:
         return []
@@ -68,5 +63,4 @@ def filter_investment_options(parameters: InvestmentOptionsSchema):
     if parameters.sort_by and parameters.sort_by in filtered_projects[0]:
         filtered_projects = sorted(filtered_projects, key=lambda x: x[parameters.sort_by])
 
-    
     return filtered_projects
